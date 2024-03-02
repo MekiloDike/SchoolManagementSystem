@@ -11,10 +11,14 @@ namespace SchoolManagementSystem.Models
         public string? SchoolPhoneNumber { get; set; }
         public string? Location { get; set; }
 
-        public List<Teacher>? Teachers { get; set; }
-        public List<NonAcademic>? NonAcademicStaff{ get; set; }
-        public List<Student>? Students { get; set; }  
-            
+        public List<Teacher>? Teachers { get; set; } = new List<Teacher>();
+        public List<NonAcademic>? NonAcademicStaff{ get; set; } = new List<NonAcademic>();
+        public List<Student>? Students { get; set; } = new List<Student>();
+      /*  public School()
+        {
+            Students = new List<Student>();
+            Id = Guid.NewGuid().ToString();
+        }*/
         
     }
 }

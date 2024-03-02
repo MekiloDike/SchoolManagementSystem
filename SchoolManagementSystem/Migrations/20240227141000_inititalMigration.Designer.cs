@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagementSystem.DbContext;
 
@@ -11,9 +12,10 @@ using SchoolManagementSystem.DbContext;
 namespace SchoolManagementSystem.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240227141000_inititalMigration")]
+    partial class inititalMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,7 +176,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address", (string)null);
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Course", b =>
@@ -192,7 +194,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasIndex("StudentCourseId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.NonAcademic", b =>
@@ -221,7 +223,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("NonAcademics", (string)null);
+                    b.ToTable("NonAcademics");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.School", b =>
@@ -243,7 +245,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Student", b =>
@@ -282,7 +284,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.StudentCourse", b =>
@@ -292,7 +294,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StudentCourses", (string)null);
+                    b.ToTable("StudentCourses");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Teacher", b =>
@@ -339,7 +341,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Teachers", (string)null);
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Users", b =>
@@ -353,9 +355,6 @@ namespace SchoolManagementSystem.Migrations
                     b.Property<string>("AddressId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -368,9 +367,6 @@ namespace SchoolManagementSystem.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")

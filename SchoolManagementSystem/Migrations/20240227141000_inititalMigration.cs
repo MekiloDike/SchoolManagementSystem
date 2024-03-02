@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SchoolManagementSystem.Migrations
 {
-    public partial class connectToDb : Migration
+    public partial class inititalMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

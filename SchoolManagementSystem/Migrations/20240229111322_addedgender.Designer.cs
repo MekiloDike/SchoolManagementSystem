@@ -12,8 +12,8 @@ using SchoolManagementSystem.DbContext;
 namespace SchoolManagementSystem.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240227132547_connectToDb")]
-    partial class connectToDb
+    [Migration("20240229111322_addedgender")]
+    partial class addedgender
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -355,6 +355,9 @@ namespace SchoolManagementSystem.Migrations
                     b.Property<string>("AddressId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -367,6 +370,9 @@ namespace SchoolManagementSystem.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
