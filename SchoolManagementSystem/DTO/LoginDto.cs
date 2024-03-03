@@ -2,7 +2,7 @@
 
 namespace SchoolManagementSystem.ViewModel
 {
-    public class LoginVM
+    public class LoginDto
     {
         [Required]
         [EmailAddress(ErrorMessage = "Invalid Email format!")]

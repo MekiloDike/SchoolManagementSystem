@@ -4,6 +4,6 @@ namespace SchoolManagementSystem.Helper
 {
     public interface IJwtService
     {
-        string GenerateJwtToken(Users user);
+        string GenerateJwtToken(Users user, IList<string> roles);
     }
 }

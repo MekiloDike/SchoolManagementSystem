@@ -2,7 +2,7 @@
 
 namespace SchoolManagementSystem.ViewModel
 {
-    public class RegisterUserVM
+    public class RegisterUserDto
     {
         [Required]
         [StringLength(20, ErrorMessage = "First name should not be more than 20 letters")]

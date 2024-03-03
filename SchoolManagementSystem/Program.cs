@@ -65,6 +65,7 @@ builder.Services.AddIdentity<Users, IdentityRole>().AddEntityFrameworkStores<App
 
 //register interface services
 builder.Services.AddScoped<IUserManagement, UserManagement>();
+builder.Services.AddScoped<IAdminManagement, AdminManagement>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 //jwt authentication settings
@@ -77,14 +78,13 @@ builder.Services.AddAuthentication(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            ValidateIssuerSigningKey = true,
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidIssuer = "myIssuer",
-            ValidAudience = "myAudience",/*ValidIssuer = builder.Configuration["jwt : Issuer"],
-            ValidAudience = builder.Configuration["jwt : Audience"],*/
+            ClockSkew = TimeSpan.Zero,
+            ValidIssuer = builder.Configuration["jwt:Issuer"],
+            ValidAudience = builder.Configuration["jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("djojjwhdwjijwi8y65768987643253retysyssyuhiojpohif555654589uyt5dfgh"))
-            //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt : key"]))
         };
     });
 builder.Services.AddAuthorization();

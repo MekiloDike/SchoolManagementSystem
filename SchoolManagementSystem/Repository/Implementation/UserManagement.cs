@@ -4,6 +4,8 @@ using SchoolManagementSystem.Models;
 using SchoolManagementSystem.Repository.Interface;
 using SchoolManagementSystem.Helper;
 using Microsoft.EntityFrameworkCore;
+using SchoolManagementSystem.DTO;
+using System.Data;
 
 namespace SchoolManagementSystem.Repository.Implementation
 {
@@ -11,19 +13,18 @@ namespace SchoolManagementSystem.Repository.Implementation
     {
         private readonly UserManager<Users> _userManager;
         private readonly SignInManager<Users> _signInManager;
-         private readonly IJwtService _ijwtService;
+        private readonly IJwtService _ijwtService;
         public UserManagement(UserManager<Users> userManager, SignInManager<Users> signInManager, IJwtService jwtService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-              _ijwtService = jwtService;
+            _ijwtService = jwtService;
         }
-        public async Task<bool> RegisterUser(RegisterUserVM register)
+        public async Task<bool> RegisterUser(RegisterUserDto register)
         {
             var existingUser = await _userManager.FindByEmailAsync(register.Email);
             if (existingUser != null)
             {
-
                 throw new Exception("Email already exists");
             }
 
@@ -54,7 +55,7 @@ namespace SchoolManagementSystem.Repository.Implementation
             return result.Succeeded;
         }
 
-        public async Task<string> LogInUser(LoginVM login)
+        public async Task<string> LogInUser(LoginDto login)
         {
             var token = "";
             var userModel = await _userManager.FindByNameAsync(login.Email);
@@ -72,9 +73,11 @@ namespace SchoolManagementSystem.Repository.Implementation
             var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, login.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-               token =  _ijwtService.GenerateJwtToken(userModel);                
+                //get all the roles of that user
+                var userRole = await _userManager.GetRolesAsync(userModel);
+                token = _ijwtService.GenerateJwtToken(userModel, userRole);
             }
-                return token;  
+            return token;
         }
 
 
@@ -83,10 +86,6 @@ namespace SchoolManagementSystem.Repository.Implementation
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<List<Users>> GetAllUsers()
-        {
-            var users = await _userManager.Users.ToListAsync();
-            return users;
-        }
+       
     }
-} 
+}

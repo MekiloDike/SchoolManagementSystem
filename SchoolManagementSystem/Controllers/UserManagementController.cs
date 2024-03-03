@@ -17,7 +17,7 @@ namespace SchoolManagementSystem.Controllers
 
         [HttpPost]
         [Route("CreateNewUsers")]
-        public async Task<IActionResult> UserRegister(RegisterUserVM registerUserVM)
+        public async Task<IActionResult> UserRegister(RegisterUserDto registerUserVM)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace SchoolManagementSystem.Controllers
 
         [HttpPost]
         [Route("LogInUsers")]
-        public async Task<IActionResult> LogIn(LoginVM loginVM)
+        public async Task<IActionResult> LogIn(LoginDto loginVM)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace SchoolManagementSystem.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("LogOutusers")]
         public async Task<IActionResult> LogOut()
@@ -68,28 +68,6 @@ namespace SchoolManagementSystem.Controllers
                 return BadRequest(ex.Message);
             }
 
-        }
-
-        [Authorize]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet]
-        [Route("GetAllAppUsers")]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            try
-            {
-                var users = await _userManagement.GetAllUsers();
-                if (users is not null)
-                    return Ok("Successful");
-                else
-                    return NotFound("No user found");
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
+        }        
     }
 }
