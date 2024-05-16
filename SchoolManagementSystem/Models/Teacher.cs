@@ -11,8 +11,7 @@ namespace SchoolManagementSystem.Models
         public Levels? Level { get; set; }
         public Qualification? Qualification { get; set; }
         public string? SchoolName { get; set; }
-        public SchoolType? SchoolType { get; set; }
-        public Classes? Class { get; set; }
+        public Classes? Class { get; set; }//use this to find all students
         
 
         [ForeignKey("Course")]
@@ -25,10 +24,9 @@ namespace SchoolManagementSystem.Models
 
         [ForeignKey("Users")]
         public string? UserId {  get; set; }     
-        public Users? Users { get; set; }
-
-
+        public Users? Users { get; set; } 
+       
     }
 
-   
+
 }

@@ -11,6 +11,8 @@ namespace SchoolManagementSystem.Models
         public string? LGA { get; set; }
         public string? State { get; set; }
         public string? Country { get; set; }
-        public Users? User { get; set; }
+        public virtual Users? User { get; set; }
     }
+  
+    
 }

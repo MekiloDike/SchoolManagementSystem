@@ -36,7 +36,7 @@ namespace SchoolManagementSystem.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+       
         [HttpPost]
         [Route("Create-New-Role")]
         public async Task<IActionResult> CreatUserRole([FromQuery] string userRole)
@@ -59,7 +59,7 @@ namespace SchoolManagementSystem.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("AssignRoleToUser")]
         public async Task<IActionResult> AssignUserRole(string userId, string roleId)

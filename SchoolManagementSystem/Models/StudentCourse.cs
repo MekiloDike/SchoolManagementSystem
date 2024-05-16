@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolManagementSystem.Models
 {
@@ -6,7 +7,12 @@ namespace SchoolManagementSystem.Models
     {
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
-        public List<Course>? Course { get; set; } = new List<Course>();
-        public List<Student>? Students { get; set; } = new List<Student>();
+        [ForeignKey("Course")]
+        public string? CourseId { get; set; }
+        public Course? Course { get; set; }
+
+        [ForeignKey("Student")]
+        public string? StudentId { get; set; }
+        public Student? Student { get; set; }
     }
 }

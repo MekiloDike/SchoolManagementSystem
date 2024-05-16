@@ -10,7 +10,7 @@
         }
         public enum Classes
         {
-            Jss1,
+            Jss1 = 1,
             Jss2,
             Jss3,
             Sss1,

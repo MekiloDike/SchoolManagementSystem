@@ -27,7 +27,27 @@ namespace SchoolManagementSystem.Repository.Implementation
             {
                 throw new Exception("Email already exists");
             }
+            //map RegisterUserDto to users
+            /*var userAddress = new Address
+            {
+                StreetName = register.StreetName,
+                LGA = register.LGA,
+                State = register.State,
+                Country = register.Country,
 
+            };
+            var userModel = new Users
+            {
+                FirstName = register.FirstName,
+                LastName = register.LastName,
+                Email = register.Email,
+                Gender = register.Gender,
+                PhoneNumber = register.PhoneNumber,
+                UserName = register.Email,
+                Address = userAddress,
+                AddressId = userAddress.Id,
+            };*/
+            
             var userModel = new Users
             {
                 FirstName = register.FirstName,

@@ -174,7 +174,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address", (string)null);
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Course", b =>
@@ -185,14 +185,9 @@ namespace SchoolManagementSystem.Migrations
                     b.Property<string>("CourseName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StudentCourseId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentCourseId");
-
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.NonAcademic", b =>
@@ -221,7 +216,7 @@ namespace SchoolManagementSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("NonAcademics", (string)null);
+                    b.ToTable("NonAcademics");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.School", b =>
@@ -241,17 +236,17 @@ namespace SchoolManagementSystem.Migrations
                     b.Property<string>("SchoolPhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SchoolType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Student", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AddressId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Class")
@@ -266,23 +261,16 @@ namespace SchoolManagementSystem.Migrations
                     b.Property<string>("SchoolId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("StudentCourseId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("SchoolId");
-
-                    b.HasIndex("StudentCourseId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.StudentCourse", b =>
@@ -290,9 +278,19 @@ namespace SchoolManagementSystem.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("StudentCourses", (string)null);
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentCourses");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Teacher", b =>
@@ -318,28 +316,18 @@ namespace SchoolManagementSystem.Migrations
                     b.Property<string>("SchoolName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SchoolType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId")
-                        .IsUnique()
-                        .HasFilter("[CourseId] IS NOT NULL");
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("SchoolId");
 
-                    b.HasIndex("StudentId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Teachers", (string)null);
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Users", b =>
@@ -477,19 +465,10 @@ namespace SchoolManagementSystem.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SchoolManagementSystem.Models.Course", b =>
-                {
-                    b.HasOne("SchoolManagementSystem.Models.StudentCourse", "StudentCourse")
-                        .WithMany("Course")
-                        .HasForeignKey("StudentCourseId");
-
-                    b.Navigation("StudentCourse");
-                });
-
             modelBuilder.Entity("SchoolManagementSystem.Models.NonAcademic", b =>
                 {
                     b.HasOne("SchoolManagementSystem.Models.School", "School")
-                        .WithMany("NonAcademicStaff")
+                        .WithMany()
                         .HasForeignKey("SchoolId");
 
                     b.HasOne("SchoolManagementSystem.Models.Users", "Users")
@@ -503,44 +482,43 @@ namespace SchoolManagementSystem.Migrations
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Student", b =>
                 {
-                    b.HasOne("SchoolManagementSystem.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
                     b.HasOne("SchoolManagementSystem.Models.School", "School")
                         .WithMany("Students")
                         .HasForeignKey("SchoolId");
-
-                    b.HasOne("SchoolManagementSystem.Models.StudentCourse", "StudentCourse")
-                        .WithMany("Students")
-                        .HasForeignKey("StudentCourseId");
 
                     b.HasOne("SchoolManagementSystem.Models.Users", "Users")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Address");
-
                     b.Navigation("School");
 
-                    b.Navigation("StudentCourse");
-
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("SchoolManagementSystem.Models.StudentCourse", b =>
+                {
+                    b.HasOne("SchoolManagementSystem.Models.Course", "Course")
+                        .WithMany("StudentCourses")
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("SchoolManagementSystem.Models.Student", "Student")
+                        .WithMany("StudentCourse")
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Teacher", b =>
                 {
                     b.HasOne("SchoolManagementSystem.Models.Course", "Course")
-                        .WithOne("Teacher")
-                        .HasForeignKey("SchoolManagementSystem.Models.Teacher", "CourseId");
+                        .WithMany()
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("SchoolManagementSystem.Models.School", "School")
                         .WithMany("Teachers")
                         .HasForeignKey("SchoolId");
-
-                    b.HasOne("SchoolManagementSystem.Models.Student", null)
-                        .WithMany("TeacherName")
-                        .HasForeignKey("StudentId");
 
                     b.HasOne("SchoolManagementSystem.Models.Users", "Users")
                         .WithMany()
@@ -569,13 +547,11 @@ namespace SchoolManagementSystem.Migrations
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Course", b =>
                 {
-                    b.Navigation("Teacher");
+                    b.Navigation("StudentCourses");
                 });
 
             modelBuilder.Entity("SchoolManagementSystem.Models.School", b =>
                 {
-                    b.Navigation("NonAcademicStaff");
-
                     b.Navigation("Students");
 
                     b.Navigation("Teachers");
@@ -583,14 +559,7 @@ namespace SchoolManagementSystem.Migrations
 
             modelBuilder.Entity("SchoolManagementSystem.Models.Student", b =>
                 {
-                    b.Navigation("TeacherName");
-                });
-
-            modelBuilder.Entity("SchoolManagementSystem.Models.StudentCourse", b =>
-                {
-                    b.Navigation("Course");
-
-                    b.Navigation("Students");
+                    b.Navigation("StudentCourse");
                 });
 #pragma warning restore 612, 618
         }

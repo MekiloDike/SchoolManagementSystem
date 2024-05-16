@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagementSystem", "SchoolManagementSystem\SchoolManagementSystem.csproj", "{FE194320-54DE-4595-AAAE-1E31A35F5D04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagementSystem", "SchoolManagementSystem\SchoolManagementSystem.csproj", "{FE194320-54DE-4595-AAAE-1E31A35F5D04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagementUI", "SchoolManagementUI\SchoolManagementUI.csproj", "{86C215A2-2A9D-417A-A20B-BE4ACCE5F162}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FE194320-54DE-4595-AAAE-1E31A35F5D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE194320-54DE-4595-AAAE-1E31A35F5D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE194320-54DE-4595-AAAE-1E31A35F5D04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86C215A2-2A9D-417A-A20B-BE4ACCE5F162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86C215A2-2A9D-417A-A20B-BE4ACCE5F162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86C215A2-2A9D-417A-A20B-BE4ACCE5F162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86C215A2-2A9D-417A-A20B-BE4ACCE5F162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

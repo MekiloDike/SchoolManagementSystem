@@ -42,7 +42,7 @@ namespace SchoolManagementSystem.Helper
                 expires: expires,
                 signingCredentials: credentials
                 );
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token); 
         }
     }
 }

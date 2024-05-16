@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolManagementSystem.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace SchoolManagementSystem.Models
 {
@@ -10,9 +11,10 @@ namespace SchoolManagementSystem.Models
         public string? SchoolEmail { get; set; }
         public string? SchoolPhoneNumber { get; set; }
         public string? Location { get; set; }
+        public SchoolType? SchoolType { get; set; }
 
         public List<Teacher>? Teachers { get; set; } = new List<Teacher>();
-        public List<NonAcademic>? NonAcademicStaff{ get; set; } = new List<NonAcademic>();
+       // public List<NonAcademic>? NonAcademicStaff{ get; set; } = new List<NonAcademic>();
         public List<Student>? Students { get; set; } = new List<Student>();
       /*  public School()
         {

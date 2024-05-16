@@ -7,12 +7,9 @@ namespace SchoolManagementSystem.Models
     {
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
-        public string? CourseName { get; set; }        
-        public Teacher? Teacher { get; set; }
+        public string? CourseName { get; set; }
 
-        [ForeignKey("StudentCourse")]
-        public string? StudentCourseId { get; set; }
-        public StudentCourse? StudentCourse { get; set; }
-        
+        //many to many
+        public virtual List<StudentCourse>? StudentCourses { get; set; } = new List<StudentCourse>();
     }
 }

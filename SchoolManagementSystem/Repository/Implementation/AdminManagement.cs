@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolManagementSystem.DTO;
@@ -16,33 +17,44 @@ namespace SchoolManagementSystem.Repository.Implementation
         public AdminManagement(UserManager<Users> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
-            _roleManager = roleManager;            
+            _roleManager = roleManager;
         }
 
         public async Task<List<GetAllUsersDTO>> GetAllUsers()
         {
-            var users = await _userManager.Users.ToListAsync();
-            foreach (var user in users)
+            List<GetAllUsersDTO> list = new List<GetAllUsersDTO>();
+            var users = await _userManager.Users.Include(x => x.Address).ToListAsync();
+            if(users is not null)
             {
-                var userDto = new GetAllUsersDTO
+                foreach (var user in users)
                 {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    PhoneNo = user.PhoneNumber,
-                    Age = user.Age,
-                    Gender = user.Gender,
-                    UserAddress = new AddressDto
+                    //map users to GetAllUsersDto
+                    var userDto = new GetAllUsersDTO
                     {
-                        State = user.Address.State,
-                    }
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email,
+                        PhoneNo = user.PhoneNumber,
+                        Age = user.Age,
+                        Gender = user.Gender,
+                        UserAddress = new AddressDto
+                        {
+                            State = user.Address.State,
+                            Country = user.Address.Country,
+                            LGA = user.Address.LGA,
+                            StreetName = user.Address.StreetName,
+                        }
 
-                };
+                    };
+                    list.Add(userDto);
+
+                }
+                return list;
 
             }
-            return users;
+            return list;
         }
-
+      
         public async Task<CreateRoleResponse> CreateUserRole(string userRole)
         {
             //check if role exist
@@ -52,7 +64,7 @@ namespace SchoolManagementSystem.Repository.Implementation
                 return new CreateRoleResponse()
                 {
                     IsSuccessful = false,
-                    Message = "role already exist",
+                    Message = "role doesnt exist",
                 };
             }
             // role does not exist, so create it        
@@ -80,12 +92,12 @@ namespace SchoolManagementSystem.Repository.Implementation
             var user = await _userManager.FindByIdAsync(userId);
             if (user is null)
             {
-                return new CreateRoleResponse { IsSuccessful = false, Message ="user does not exist"};
+                return new CreateRoleResponse { IsSuccessful = false, Message = "user does not exist" };
             }
 
             // check if role exist
             var role = await _roleManager.FindByIdAsync(roleId);
-            if(role is  null)
+            if (role is null)
             {
                 return new CreateRoleResponse { IsSuccessful = false, Message = "role does not exist" };
 

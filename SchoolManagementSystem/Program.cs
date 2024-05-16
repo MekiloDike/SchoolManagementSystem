@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SchoolManagementSystem.Automapper;
 using SchoolManagementSystem.DbContext;
 using SchoolManagementSystem.Helper;
 using SchoolManagementSystem.Models;
@@ -20,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSwaggerGen(opt =>
@@ -67,6 +70,9 @@ builder.Services.AddIdentity<Users, IdentityRole>().AddEntityFrameworkStores<App
 builder.Services.AddScoped<IUserManagement, UserManagement>();
 builder.Services.AddScoped<IAdminManagement, AdminManagement>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<ISchoolManagement, SchoolManagement>();
+builder.Services.AddScoped<ITeacherManagement, TeacherManagement>();
+builder.Services.AddScoped<IStudentManagement, StudentManagement>();
 
 //jwt authentication settings
 builder.Services.AddAuthentication(options =>
@@ -105,5 +111,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Seed the database with courses
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<AppDBContext>();
+    DataSeeding.SeedCourses(dbContext);
+}
 
 app.Run();
