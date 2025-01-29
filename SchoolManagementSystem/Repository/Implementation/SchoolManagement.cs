@@ -14,7 +14,7 @@ namespace SchoolManagementSystem.Repository.Implementation
         private readonly AppDBContext _dbContext;
         public SchoolManagement(AppDBContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext; 
         }
 
         public async Task<ResponseDto> CreateSchool(SchoolDto schoolDto)
@@ -58,6 +58,7 @@ namespace SchoolManagementSystem.Repository.Implementation
             {
                 foreach (var entity in entities)
                 {
+                    
                     //map school to schoolDto
                     var schoolDto = new GetSchoolDto
                     {
@@ -66,6 +67,8 @@ namespace SchoolManagementSystem.Repository.Implementation
                         Location = entity.Location,
                         SchoolName = entity.SchoolName,
                         SchoolPhoneNumber = entity.SchoolPhoneNumber,
+                        
+                        
                     };
                     list.Add(schoolDto);
                 }
@@ -87,6 +90,7 @@ namespace SchoolManagementSystem.Repository.Implementation
             //map school model to schoolDto
             var schoolDto = new GetSchoolDto
             {
+                
                 Id=entity.Id,
                 SchoolName = entity.SchoolName,
                 SchoolEmail = entity.SchoolEmail,

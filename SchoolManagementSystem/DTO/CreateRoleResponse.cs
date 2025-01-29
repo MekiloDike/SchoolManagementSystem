@@ -7,7 +7,7 @@
        
     }
 
-    public class ResponseDto
+    public class ResponseDto 
     {
         public bool IsSuccessful { get; set;}
         public string? Message { get; set;}

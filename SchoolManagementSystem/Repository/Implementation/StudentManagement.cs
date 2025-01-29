@@ -50,10 +50,11 @@ namespace SchoolManagementSystem.Repository.Implementation
             var student = new Student
             {
                 GuidianName = studentDto.GuidianName,
-                Class = studentDto.Class.ToString(),
+                Class = studentDto.Class.ToString(), 
                 UserId = studentDto.UserId,
                 SchoolId = studentDto.SchoolId,
                 RegNo = generateRegNo,
+                
             };
 
            
@@ -120,7 +121,7 @@ namespace SchoolManagementSystem.Repository.Implementation
                     //var addressEntity = await _dbContext.Address.FirstOrDefaultAsync(a => a.Id == entity.Users.AddressId);
                     
                     //map student to studentDto
-                    var studentDto1 = _mapper.Map<StudentDto>(entity);
+                   // var studentDto1 = _mapper.Map<StudentDto>(entity);
 
                     var studentDto = new StudentDto
                     {
@@ -139,8 +140,6 @@ namespace SchoolManagementSystem.Repository.Implementation
                         Country = entity?.Users?.Address?.Country,
                         SchoolName = entity?.School?.SchoolName,
                         SchoolLocation = entity?.School?.Location,
-
-
                     };
                     list.Add(studentDto);
                 }

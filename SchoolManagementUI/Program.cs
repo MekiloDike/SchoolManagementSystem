@@ -1,9 +1,18 @@
 using SchoolManagementUI.Service;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//register serilog
+Log.Logger = new LoggerConfiguration()
+               .MinimumLevel.Debug()
+               .Enrich.FromLogContext()
+               .WriteTo.Console()
+               .WriteTo.File("logs/demo.txt", rollingInterval: RollingInterval.Day)
+               .CreateLogger();
 
 // Register interface
 builder.Services.AddScoped<IUser, User>();

@@ -21,7 +21,7 @@ namespace SchoolManagementSystem.DbContext
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
-        //public DbSet<Users> Users { get; set; }
+        
         
         protected override void OnModelCreating(ModelBuilder builder)
         {

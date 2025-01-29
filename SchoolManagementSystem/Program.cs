@@ -21,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddEndpointsApiExplorer(); 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 builder.Services.AddSwaggerGen();
 
@@ -56,7 +56,7 @@ builder.Services.AddSwaggerGen(opt =>
 //var conn = "Data Source=LAPTOP-8SOO1TNC;Initial Catalog=SchoolSystem;Integrated Security=True";
 //builder.Services.AddDbContext<AppDBContext>(option => option.UseSqlServer(conn));
 
-var co = builder.Configuration.GetConnectionString("DbConnection");
+ builder.Configuration.GetConnectionString("DbConnection");
 builder.Services.AddDbContext<AppDBContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"),
     sqlServerOptionsAction: sqlOptions =>
     {
